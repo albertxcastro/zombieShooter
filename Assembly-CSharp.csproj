@@ -53,13 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\BulletScript.cs" />
-     <Compile Include="Assets\scripts\BulletSpawner.cs" />
-     <Compile Include="Assets\scripts\FollowCursor.cs" />
-     <Compile Include="Assets\scripts\MainCharacterController.cs" />
      <Compile Include="Assets\scripts\Managers\PointToCursorManager.cs" />
-     <Compile Include="Assets\scripts\ZombieIdManager.cs" />
-     <Compile Include="Assets\scripts\ZombieScript.cs" />
+     <Compile Include="Assets\scripts\Player\BulletScript.cs" />
+     <Compile Include="Assets\scripts\Player\BulletSpawner.cs" />
+     <Compile Include="Assets\scripts\Player\FollowCursor.cs" />
+     <Compile Include="Assets\scripts\Player\MainCharacterController.cs" />
+     <Compile Include="Assets\scripts\Zombies\BloodSelfDestroy.cs" />
+     <Compile Include="Assets\scripts\Zombies\ZombieIdManager.cs" />
+     <Compile Include="Assets\scripts\Zombies\ZombieScript.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/Users/Matt/source/repos/zombieShooter/zombie shooter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

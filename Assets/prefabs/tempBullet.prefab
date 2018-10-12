@@ -101,7 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 20
   bulletSelfDestroyTime: 1
-  bulletDamage: 2
+  bulletDamage: 0
+  bulletHeadDamage: 4
+  bloodEffect: {fileID: 1175907011840748, guid: d73e1787c6eb10f42aed2876d33125ff,
+    type: 2}
 --- !u!212 &212624998737049786
 SpriteRenderer:
   m_ObjectHideFlags: 1
