@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - zombie
+  - Ground
+  - DeadZombie
+  - Throwable
   layers:
   - Default
   - TransparentFX
@@ -14,14 +17,14 @@ TagManager:
   - UI
   - 
   - 
-  - background
-  - Effect
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Zombie
+  - Items
+  - Scene
+  - Bullets
+  - DeadZombie
+  - Ground
+  - ItemsWall
   - 
   - 
   - 
@@ -42,12 +45,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Effect
-    uniqueID: 413286039
+  - name: Player
+    uniqueID: 1153822363
     locked: 0
   - name: Zombie
     uniqueID: 385128975
     locked: 0
-  - name: Player
-    uniqueID: 1153822363
+  - name: Effect
+    uniqueID: 413286039
+    locked: 0
+  - name: Items
+    uniqueID: 3673980855
     locked: 0

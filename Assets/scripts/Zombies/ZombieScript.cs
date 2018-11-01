@@ -1,43 +1,86 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class ZombieScript : MonoBehaviour {
+public abstract class ZombieScript : MonoBehaviour {
 
-    public float zombieSpeed = 0;    
+    //publics
+    public enum ZombieTypeEnum { normalZombie, bigMuncherZombie, butcherZombie };
+    public ZombieTypeEnum ZombieType;
+
     public int healthPoints = 10;
 
-    //private int totalHealth;
-    //private int zombieID;
-    private Rigidbody2D rb;
+    public Animator zombieAnimator;
 
-    void Awake() {
-        //zombieID = ZombieIdManager.getZombieID();
-    }
+    //privates
+    private enum Layers { defaultLayer = 0, zombieLayer = 9, deadZombie = 13 };
+
+    //protected methods
+    protected bool isGameOver = false;
+    protected bool isZombieDead = false;
+    protected abstract void ZombieMovement();
+    protected abstract void Die();
+    protected abstract void StopZombieMovement();
+    protected abstract void OnZombieStart();
+    
+
+    protected Rigidbody2D zombieRigidBody;
 
     // Use this for initialization
-    void Start () {
-        rb = GetComponent<Rigidbody2D>();
+    protected void Start () {
+        zombieRigidBody = GetComponent<Rigidbody2D>();
+        EventsManager.Instance.GameOverListener += GameOver;
+        OnZombieStart();
+    }
 
-        rb.velocity = new Vector2(zombieSpeed, 0);
-
-        //totalHealth = healthPoints;
+    void OnDestroy()
+    {
+        EventsManager.Instance.GameOverListener -= GameOver;
     }
 
     void Update()
-    {
-        rb.velocity = new Vector2(zombieSpeed, 0);
-
-        if (healthPoints <= 0) {
-            Die();
+    {        
+        if(healthPoints > 0 && !isGameOver)
+        {
+            ZombieMovement();
         }
-    }
-
-    private void Die() {
-        Destroy(gameObject);
     }
 
     public void ApplyDamage(int damage) {
         healthPoints -= damage;
-    }	
+        if (healthPoints <= 0)
+        {
+            ZombieDie();
+        }
+    }
+
+    private void ZombieDie()
+    {
+        EventsManager.Instance.BroadcastZombieDied(ZombieType, transform);
+        isZombieDead = true;
+        zombieRigidBody.constraints = RigidbodyConstraints2D.None;
+        RemoveTagsAndLayers();
+        Die();
+    }
+
+    private void RemoveTagsAndLayers()
+    {
+        transform.tag = "Untagged";
+        transform.gameObject.layer = (int)Layers.deadZombie;
+
+        foreach (Transform child in transform)
+        {
+            child.tag = "Untagged";
+            child.gameObject.layer = (int)Layers.deadZombie;
+            foreach (Transform Schild in child)
+            {
+                Schild.tag = "Untagged";
+                Schild.gameObject.layer = (int)Layers.deadZombie;
+            }
+        }
+    }
+
+    private void GameOver() {
+        isGameOver = true;
+        StopZombieMovement();
+    }
 }
